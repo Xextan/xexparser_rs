@@ -3,11 +3,10 @@
  * preprocessing, then to grammar for grammaring.
  */
 
-mod grammar;
-mod preproc;
-mod syllable;
-
 use std::io::BufRead;
+
+include!(concat!(env!("OUT_DIR"), "/hello.rs"));
+
 
 pub fn main() {
     let mut args = std::env::args();
@@ -37,7 +36,7 @@ pub fn main() {
     // Decide between line-based mode and regular mode
 
     if let Some(input) = input {
-        println!("{:?}", grammar::text_parser::text(input.as_ref()));
+        println!("{:?}", Ok::<&str, &str>("Parser: Coming Soon"));
     }
     else {
         println!("Xexparser-rs Line Based Mode\nType 'quit' to quit\n");
@@ -52,7 +51,7 @@ pub fn main() {
                 return;
             }
             else {
-                let parsed = grammar::text_parser::text(line.trim());
+                let parsed: Result<&str, &str> = Ok(""); // TODO: Parser
 
                 if parsed.is_ok() {
                     println!("{:?}\n", parsed.unwrap());
